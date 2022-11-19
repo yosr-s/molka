@@ -31,7 +31,7 @@
                                     
                                     <div class="card-body">
         
-                                        <table id="datatable" class="table table-bordered dt-responsive  nowrap w-100 table-secondary table table-striped">
+                                        <table id="datatable" class="table table-bordered dt-responsive  nowrap w-100 table-secondary ">
                                             <thead class="table-dark">
                                             <tr>
                                                 <th>id</th>
@@ -60,7 +60,10 @@
                                                 <td>{{$donnee['email']}}</td>
                                                 <td>{{$donnee['adresse']}}</td>
                                                 <td>{{$donnee['tel']}}</td>
-                                                <td>{{$donnee['stat']}}</td>
+                                                 @if($donnee->stat == 0) <td class="table-primary"> <p color="blue">en cours</p></td>
+                                            @elseif($donnee->stat == 1) <td class="table-info"><p>confirmé</p></td>
+                                        @else <td class="table-danger"><p>retourné</p></td>
+                                    @endif
                                                 <td>
                                                 <a href="/modifierColis/{{$donnee['id']}}" class="btn btn-primary"> modifier </a>
 

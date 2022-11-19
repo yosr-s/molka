@@ -50,7 +50,7 @@
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="exampleFormControlSelect1">Type</label>
-                                                        <select class="form-control" id="exampleFormControlSelect1" >
+                                                        <select class="form-control" id="exampleFormControlSelect1" name="role">
                                                         <option>admin</option>
                                                         <option>livreur</option>
                                                         

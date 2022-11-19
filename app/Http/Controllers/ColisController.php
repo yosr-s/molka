@@ -5,49 +5,59 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Models\colis;
+use Auth;
+
 
 class ColisController extends Controller
 {
+    //affichage
     public function getColis(){
         $dataColis=colis::all();
         return view('l-demande-colis',['donnees'=>$dataColis]);
     }
+    //affichage liste colis front
+    public function getColisClient(){
+        $dataColis=colis::where('email',Auth::user()->email)->get();
+
+       
+
+        return view('dashbord', ['donnees'=>$dataColis]);
+    }
+    //afficher liste colis back
 
     public function getlisteColis(){
         $dataColis=colis::all();
         return view('l-colis',['donnees'=>$dataColis]);
     }
-    public function deleteColis($id){
-        $dataColisDelete=colis::find($id);
-        $dataColisDelete->delete();
-        return redirect('/l-colis')->with('message','le colis a bien été supprimé');
-
-
-    }
-
-    public function deleteColisP($id){
-        $dataColisDelete=colis::find($id);
-        $dataColisDelete->delete();
-        return redirect('/l-colis-payee')->with('message','le colis a bien été supprimé');
-
-
-    }
-
-    public function getColisId($id){
+    //modifier colis Client
+    
+    public function getColisIdClient($id){
         $dataColisShow=colis::find($id);
-        return view('/modif-colis',['donnee'=>$dataColisShow]);
+        return view('/modif-colis-client',['donnee'=>$dataColisShow]);
+
+
+    }
+    public function updateColisClient(Request $req){
+        $colis = colis::find($req->id);
+        $colis->contenu=$req->contenu;
+        $colis->qte=$req->qte;
+        $colis->prix=$req->prix;
+        $colis->nom=$req->nom;
+        $colis->email=$req->email;
+        $colis->adresse=$req->adresse;
+        $colis->fournisseur=$req->fournisseur;
+        $colis->tel=$req->tel;
+        $colis->save();
+
+
+
+        return redirect('/dashbord')->with('message','votre colis a bien été modifié');
 
 
     }
 
-    public function lreg($reg){
-        $dataColisShow=colis::where('region',$reg)->get();
-        return view('/l-colis-reg',['donnees'=>$dataColisShow]);
-
-
-    }
-
-
+    //modifier colis back
+    
     public function updateColis(Request $req){
         $colis = colis::find($req->id);
         $colis->contenu=$req->contenu;
@@ -65,7 +75,51 @@ class ColisController extends Controller
 
 
     }
+    //supprimer colis back
+    public function deleteColis($id){
+        $dataColisDelete=colis::find($id);
+        $dataColisDelete->delete();
+        return redirect('/l-colis')->with('message','le colis a bien été supprimé');
 
+
+    }
+    //supprimer colis Client
+    public function deleteColisClient($id){
+        $dataColisDelete=colis::find($id);
+        $dataColisDelete->delete();
+        return redirect('/dashbord')->with('message','le colis a bien été supprimé');
+
+
+    }
+
+    //supprimer colis payé
+    public function deleteColisP($id){
+        $dataColisDelete=colis::find($id);
+        $dataColisDelete->delete();
+        return redirect('/l-colis-payee')->with('message','le colis a bien été supprimé');
+
+
+    }
+    //récupérer id colis back
+
+    public function getColisId($id){
+        $dataColisShow=colis::find($id);
+        return view('/modif-colis',['donnee'=>$dataColisShow]);
+
+
+    }
+
+
+    //afficher liste colis par region
+    public function lreg($reg){
+        $dataColisShow=colis::where('region',$reg)->get();
+        return view('/l-colis-reg',['donnees'=>$dataColisShow]);
+
+
+    }
+
+
+    //ajouter colis back
     public function addColis(Request $req){
         $colis = new colis;
         $colis->contenu=$req->contenu;
@@ -84,6 +138,26 @@ class ColisController extends Controller
 
     }
 
+    //ajout colis front
+    public function addColisClient(Request $req){
+        $colis = new colis;
+        $colis->contenu=$req->contenu;
+        $colis->qte=$req->qte;
+        $colis->prix=$req->prix;
+        $colis->nom=$req->nom;
+        $colis->email=$req->email;
+        $colis->adresse=$req->adresse;
+        $colis->fournisseur=$req->fournisseur;
+        $colis->tel=$req->tel;
+        
+        $colis->save();
+        return redirect('/dashbord')->with('message','votre colis a été bien ajouté');
+
+
+        
+
+    }
+    //modif de stat 0/1
     public function updateConfirm(Request $req){
         $colis = colis::find($req->id);
         $colis->stat=1;

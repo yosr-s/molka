@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
     
+    
 <!-- Mirrored from jthemes.net/themes/f-html/GO-Courier/contact-us-2.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 10 Jan 2022 09:29:09 GMT -->
 <head>
         @yield('title')
@@ -48,9 +49,38 @@
                             <div class="col-md-6 col-sm-7 fs-12">
                                 <p class="contact-num">  <i class="fa fa-phone"></i> Appeler nous maintenent: <span class="theme-clr"> +880-1756-390-370 </span> </p>
                             </div>
+                            
                         </div>
                     </div>
-                    <a data-toggle="modal" href="#login-popup" class="sign-in fs-12 theme-clr-bg"> mon compte </a>
+                    @guest
+                            @if (Route::has('login'))
+                            <a data-toggle="modal" href="#login-popup" class="sign-in fs-12 theme-clr-bg"> 
+                    mon compte </a>
+                            @endif
+
+                            @if (Route::has('register'))
+                            <a data-toggle="modal" href="#login-popup" class="sign-in fs-12 theme-clr-bg"> 
+                    mon compte </a>
+                            @endif
+                            @else
+
+                            <a data-toggle="modal" href="{{ route('logout') }}" class="sign-in fs-12 theme-clr-bg" onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();"><i class="mdi mdi-logout font-size-16 align-middle me-1"> 
+                            {{ Auth::user()->name }}
+                            </a>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                        @csrf
+                                    </form>
+                           
+                            
+                           
+                            
+
+                            
+                            
+                            
+                    @endguest
+                   
                 </div>
                 <!-- /.Header Topbar -->
 
@@ -178,13 +208,65 @@
                         <p> Sign in to <strong> GO </strong> for getting all details </p>                        
 
                         <div class="login-form clrbg-before">
-                            <form class="login">
-                                <div class="form-group"><input type="text" placeholder="Email address" class="form-control"></div>
-                                <div class="form-group"><input type="password" placeholder="Password" class="form-control"></div>
-                                <div class="form-group">
-                                    <button class="btn-1 " type="submit"> Sign in now </button>
+                        <form method="POST" action="{{ route('login') }}" >
+                        @csrf
+
+                        <div class="row mb-3">
+                            <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Email Address') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+
+                                @error('email')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label for="password" class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
+
+                                @error('password')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-md-6 offset-md-4">
+                                <div class="form-check">
+                                    <br>
+                                    <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
+
+                                    <label class="form-check-label" for="remember">
+                                        {{ __('Remember Me') }}
+                                    </label>
                                 </div>
-                            </form>
+                            </div>
+                        </div>
+
+                        <div class="row mb-0">
+                            <div class="col-md-8 offset-md-4">
+                               <button type="submit" class="btn btn-primary">
+                                    {{ __('Login') }}
+                                </button>
+
+
+                                @if (Route::has('password.request'))
+                                    <a class="btn btn-link" href="{{ route('password.request') }}">
+                                        {{ __('Forgot Your Password?') }}
+                                    </a>
+                                @endif
+                            </div>
+                        </div>
+                    </form>
                         </div>                        
                     </div>
                    

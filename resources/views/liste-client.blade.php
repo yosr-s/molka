@@ -55,11 +55,11 @@
                                                 <td>{{ $donnee['tel'] }}</td>
                                                 <td>{{ $donnee['email'] }}</td>
                                                 <td>
-                                                <a href="/modif-client"> 
-                                                    <button type="button" class="btn btn-primary">modifier</button>
-                                                </a>
-                                                <a class="btn btn-danger" onclick="return confirm('voulez-vous supprimer le client {{$donnee['name']}}')"
-                                                 href="deleteClient/{{$donnee['id']}}"> Supprimer </a>
+                                                <a href="/modifierClient/{{$donnee['id']}}" class="btn btn-primary"> modifier </a>
+                                                
+                                                <a class="btn btn-danger" onclick="return confirm('voulez-vous supprimer le client{{$donnee['name']}}')"
+                                                href="deleteClient/{{$donnee['id']}}"> Supprimer </a>
+                                                </td>
                                             </tr>
                                            @endforeach
                                             </tbody>

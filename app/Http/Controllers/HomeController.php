@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Auth;
+use App\Models\User;
+use App\Models\colis;
+use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
@@ -23,6 +27,26 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        if(Auth::user()->role == "admin"){
+            $dataAdmin = User::all();
+            return view('ajout-admin', ['donnees'=>$dataAdmin]);
+        }
+        elseif(Auth::user()->role == "livreur"){
+            $dataClient = User::all();
+            return view('l-demande-colis', ['donnees'=>$dataClient]);
+
+        }
+        else{
+            $dataEventRbk1 ==colis::all();
+           
+
+            return view('dashbord', [ 'donnees1'=>$dataEventRbk1]);
+
+            
+
+
+        }
+        //dd(Auth::user()->role);
+       // return view('home');
     }
 }

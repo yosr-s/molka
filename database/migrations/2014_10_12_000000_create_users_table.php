@@ -21,9 +21,9 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
-            $table->string('role')->default('user');
-            $table->string('prenom')->default('');
-            $table->string('login');
+            $table->string('role');
+            $table->string('prenom')->default("");
+            $table->string('login')->default('');
             $table->string('raison_sociale')->default("");
             $table->string('adresse')->default("");
             $table->string('matricule_fiscale')->default("");

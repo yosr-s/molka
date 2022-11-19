@@ -21,7 +21,6 @@
                         <th scope="col">Quantité	</th>
                         <th scope="col">prix	</th>
                         <th scope="col">Contenu		</th>
-                        <th scope="col">statut		</th>
                         <th scope="col">action	</th>
 
 
@@ -29,12 +28,28 @@
                       </tr>
                     </thead>
                     <tbody>
+                    @foreach($donnees as $donnee)
                       <tr>
                         <th scope="row">1</th>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
+                        <td>{{$donnee['fournisseur']}}</td>
+                        <td>{{$donnee['qte']}}</td>
+                        <td>{{$donnee['prix']}}</td>
+                        <td>{{$donnee['contenu']}}</td>
+                     <td>   
+                      @if($donnee->pickup == 0)
+                     <a href="/modifierColisClient/{{$donnee['id']}}" class="btn btn-primary"> modifier </a>
+
+                                                    
+<a class="btn btn-danger" onclick="return confirm('voulez-vous supprimer le colis {{$donnee['contenu']}}')"
+href="deleteColisClient/{{$donnee['id']}}"> Supprimer </a>
+@else <p>no right to modifications</p>
+@endif
+  
+</td>
+
+
                       </tr>
+                      @endforeach
                      
                     </tbody>
                   </table>

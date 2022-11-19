@@ -19,4 +19,20 @@ class msgController extends Controller
 
 
     }
+    //envoyer contact client
+    public function addContact(Request $req){
+        $message = new message;
+        $message->nom=$req->nom;
+        $message->email=$req->email;
+        $message->sujet=$req->sujet;
+        $message->message=$req->message;
+        
+        
+        $message->save();
+        return redirect('/contact')->with('message','votre message a été bien ajouté');
+
+
+        
+
+    }
 }

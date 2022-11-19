@@ -31,12 +31,12 @@
 
                                                      <div class="mb-3">
                                                         <label for="example-text-input" class="form-label">Prénom</label>
-                                                        <input class="form-control" type="text" name="prenom" value="{{$donnee['prenom']}}" placeholder="Prénom" id="example-text-input">
+                                                        <input class="form-control" type="text" name="prenom" value="{{$donnee['prenom']}}"  id="example-text-input">
                                                     </div>
 
                                                      <div class="mb-3">
                                                         <label for="example-text-input" class="form-label">Login</label>
-                                                        <input class="form-control" type="text" name="login" value="{{$donnee['login']}}" placeholder="Login" id="example-text-input">
+                                                        <input class="form-control" type="text" name="login" value="{{$donnee['login']}}"  id="example-text-input">
                                                     </div>
                                                    
                                                     <div class="mb-3">
@@ -53,9 +53,9 @@
 
                                                       <div class="form-group">
                 <label for="exampleFormControlSelect1">Type</label>
-                <select class="form-control" id="exampleFormControlSelect1">
-                <option>Super admin</option>
-                <option>Sous admin</option>
+                <select class="form-control" id="exampleFormControlSelect1" name="role" value="{{$donnee['role']}}">
+                <option>admin</option>
+                <option>livreur</option>
     
     </select>
   </div>

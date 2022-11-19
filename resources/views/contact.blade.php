@@ -41,29 +41,49 @@
 
                             <div class="col-md-5 col-sm-6 col-md-offset-1 contact-form">
                                 <div class="calculate-form">
-                                    <form class="row" id="contact-form">
-                                        <div class="form-group wow fadeInUp" data-wow-offset="50" data-wow-delay=".30s">
-                                            <div class="col-sm-3"> <label class="title-2"> Nom: </label></div>
-                                            <div class="col-sm-9"> <input type="text" name="Name" id="Name" required placeholder="" class="form-control"> </div>
+                                <div class="calculate-form">
+                                    <form class="row" action="addContact" method="post">
+                                        @csrf
+                                        
+                                       
+                                      
+                                        <div class="form-group wow fadeInUp" data-wow-offset="50" data-wow-delay=".20s">
+                                            <div class="col-sm-3"> <label class="title-2"> nom: </label></div>
+                                            <div class="col-sm-9"> <input data-bind="in:value, f: float" data-name="weight" name="nom" type="text" placeholder="" class="form-control"> </div>
                                         </div>
-                                        <div class="form-group wow fadeInUp" data-wow-offset="50" data-wow-delay=".30s">
-                                            <div class="col-sm-3"> <label class="title-2"> Email: </label></div>
-                                            <div class="col-sm-9"> <input type="text" name="Email" id="Email" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" placeholder="" class="form-control"> </div>
+                                       
+                                        <div class="form-group wow fadeInUp" data-wow-offset="50" data-wow-delay=".20s">
+                                            <div class="col-sm-3"> <label class="title-2"> e-mail: </label></div>
+                                            <div class="col-sm-9"> <input data-bind="in:value, f: float" name="email" data-name="weight" type="text" placeholder="" class="form-control"> </div>
                                         </div>
-                                        <div class="form-group wow fadeInUp" data-wow-offset="50" data-wow-delay=".30s">
-                                            <div class="col-sm-3"> <label class="title-2"> Sujet: </label></div>
-                                            <div class="col-sm-9"> <input type="text" name="Phone" id="Phone" placeholder="" class="form-control"> </div>
+                                        <div class="form-group wow fadeInUp" data-wow-offset="50" data-wow-delay=".20s">
+                                            <div class="col-sm-3"> <label class="title-2"> sujet: </label></div>
+                                            <div class="col-sm-9"> <input data-bind="in:value, f: float" name="sujet" data-name="weight" type="text" placeholder="" class="form-control"> </div>
                                         </div>
                                         <div class="form-group wow fadeInUp" data-wow-offset="50" data-wow-delay=".30s">
                                             <div class="col-sm-3"> <label class="title-2"> Message: </label></div>
-                                            <div class="col-sm-9"> <textarea class="form-control" name="Message" id="Message" required cols="25" rows="3"></textarea> </div>
+                                            <div class="col-sm-9"> <textarea class="form-control" name="message" id="Message" required cols="25" rows="3"></textarea> </div>
                                         </div>
-                                        <div class="form-group wow fadeInUp" data-wow-offset="50" data-wow-delay=".30s">
-                                            <div class="col-sm-9 col-xs-12 pull-right">
-                                                <button name="submit" id="submit_btn" class="btn-1"> envoyer message </button>
+                                       
+                                                                       
+                                        <div class="form-group wow fadeInUp" data-wow-offset="50" data-wow-delay=".20s">
+                                            <div class="col-sm-9 col-xs-12 pull-right"> 
+                                                <div class="btn-1"> <span> Total + 6dt prix de livraison: </span>
+                                                    <span data-bind="out:price, f:currency" data-name="cost" class="btn-1 dark">
+                                                        <span class="pr-sign">-&nbsp;</span> $<span class="pr-wrap" style="display: none;"><span class="pr">0</span></span>
+                                                    </span>
+                                                </div>
                                             </div>
                                         </div>
+                                        <div class="form-group wow fadeInUp" data-wow-offset="50" data-wow-delay=".20s">
+                                        <div class="form-group wow fadeInUp" data-wow-offset="50" data-wow-delay=".30s">
+                                            <div class="col-sm-9 col-xs-12 pull-right">
+                                                <button type="submit" name="submit" id="submit_btn" class="btn-1"> envoyer message </button>
+                                            </div>
+                                        </div>
+                                        </div>
                                     </form>
+                                </div>
                                 </div>
                             </div>
                         </div>

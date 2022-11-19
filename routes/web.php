@@ -32,15 +32,67 @@ Route::get('/wpb', function () {
 Route::get('/about', function () {
     return view('about');
 });
-Route::get('/ajout-colis', function () {
-    return view('ajout-colis');
-});
+
 Route::get('/contact', function () {
     return view('contact');
 });
-Route::get('/dashbord', function () {
-    return view('dashbord');
+//envoyer message client
+Route::view('/contact','contact');
+Route::post('addContact',[msgController::class,'addContact']);
+
+
+
+//livreur routes
+Route::group(['middleware' => ['livreur','admin']], function () {
+    Route::get('/l-demande-colis', function () {
+        return view('l-demande-colis');
+    });
+    Route::get('/l-demande-colis',[ColisController::class,'getColis']);
+    Route::get('/pickup/{id}',[ColisController::class,'updatePickup']);
+    Route::get('/editConfirm/{id}',[ColisController::class,'updateConfirm']);
+    Route::get('/editRetour/{id}',[ColisController::class,'updateRetour']);
+
+
 });
+
+//client routes
+Route::group(['middleware' => ['client'],'middleware' => ['admin']], function () {
+
+
+    Route::get('/dashbord', function () {
+        return view('dashbord');
+    });
+    Route::get('/modif-colis-client', function () {
+        return view('modif-colis-client');
+    });
+    //affiche Client
+    Route::get('/dashbord',[ColisController::class,'getColisClient']);
+    //ajout colis view
+    Route::get('/ajout-colis', function () {
+        return view('ajout-colis');
+    });
+    //ajout colis controller
+    Route::view('/ajout-colis','ajout-colis');
+    Route::post('addColisClient',[ColisController::class,'addColisClient']);
+    //supprimer colis
+    Route::get('/deleteColisClient/{id}',[ColisController::class,'deleteColisClient']);
+    //modifier colis
+    Route::get('/modifierColisClient/{id}',[ColisController::class,'getColisIdClient']);
+    Route::post('/editColisClient',[ColisController::class,'updateColisClient']);
+
+
+
+});
+
+
+
+
+
+
+//admin routes
+
+Route::group(['middleware' => ['admin']], function () {
+   
 Route::get('/ajout-admin', function () {
     return view('ajout-admin');
 });
@@ -56,9 +108,7 @@ Route::get('/liste-client', function () {
 Route::get('/liste-contact', function () {
     return view('liste-contact');
 });
-Route::get('/l-demande-colis', function () {
-    return view('l-demande-colis');
-});
+
 Route::get('/a-colis', function () {
     return view('a-colis');
 });
@@ -118,7 +168,8 @@ Route::get('/bonlivr', function () {
     return view('bonlivr');
 });
 Route::get('/liste-admin',[AdminController::class,'getAdmin']);
-Route::get('/l-demande-colis',[ColisController::class,'getColis']);
+
+
 Route::get('/l-colis',[ColisController::class,'getlisteColis']);
 Route::get('/liste-client',[AdminController::class,'getClient']);
 Route::get('/liste-contact',[msgController::class,'getmsg']);
@@ -126,6 +177,8 @@ Route::get('/deleteAdmin/{id}',[AdminController::class,'deleteAdmin']);
 Route::get('/deleteClient/{id}',[AdminController::class,'deleteClient']);
 Route::get('/deleteMsg/{id}',[msgController::class,'deletemsg']);
 Route::get('/deleteColis/{id}',[ColisController::class,'deleteColis']);
+
+
 
 
 Route::get('/deleteColisP/{id}',[ColisController::class,'deleteColisP']);
@@ -139,16 +192,19 @@ Route::get('/bonlivc/{id}',[ColisController::class,'getColisIdc']);
 
 
 
-
+//modifer admin/livreur
 Route::get('/modifierAdmin/{id}',[AdminController::class,'getAdminId']);
 Route::post('/editAdmin',[AdminController::class,'updateAdmin']);
+//modifier client
+Route::get('/modifierClient/{id}',[AdminController::class,'getClientId']);
+Route::post('/editClient',[AdminController::class,'updateClient']);
 
 Route::get('/listeparregion/{reg}',[ColisController::class,'lreg']);
 
-
+//modifier colis
 Route::get('/modifierColis/{id}',[ColisController::class,'getColisId']);
 Route::post('/editColis',[ColisController::class,'updateColis']);
-
+//ajouter colis
 Route::view('/a-colis','a-colis');
 Route::post('addColis',[ColisController::class,'addColis']);
 
@@ -158,12 +214,9 @@ Route::post('addAdmin',[AdminController::class,'addAdmin']);
 Route::view('/ajout-client','ajout-client');
 Route::post('addClient',[AdminController::class,'addClient']);
 
-Route::get('/editConfirm/{id}',[ColisController::class,'updateConfirm']);
-
-Route::get('/pickup/{id}',[ColisController::class,'updatePickup']);
 
 
-Route::get('/editRetour/{id}',[ColisController::class,'updateRetour']);
+
 
 Route::get('/editPaye/{id}',[ColisController::class,'updatePaye']);
 
@@ -185,6 +238,8 @@ Route::post('/editColisP',[ColisController::class,'updateColisP']);
 Route::get('/bonlivtotal',[ColisController::class,'getBonLivtotal']);
 
 Route::get('/qrcode', [QrCodeController::class, 'index']);
+
+});
 
 
 

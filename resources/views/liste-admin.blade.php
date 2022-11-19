@@ -39,6 +39,7 @@
                                                 <th>login</th>
                                                 <th>e-mail</th>
                                                 <th>statut</th>
+                                                
                                                 <th>action</th>
                                             </tr>
                                             </thead>
@@ -51,7 +52,7 @@
                                                 <td>{{ $donnee['prenom'] }}</td>
                                                 <td>{{ $donnee['login'] }}</td>
                                                 <td>{{ $donnee['email'] }}</td>
-                                                <td>admin/livreur</td>
+                                                <td>{{ $donnee['role'] }}</td>
 
                                                 <td>
                                                     
